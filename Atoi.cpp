@@ -1,29 +1,25 @@
 #include"head.h"
 
-int myatoi(const char *str){
-	assert(str!=NULL);
+int atoi(const char *str){
+	if(str == NULL) { return 0; }
 
-	long long x=0;
-	int len=strlen(str);
-	int i=0;
-	int sign=1;
-	while(str[i]==' ')
-		++i;
-	if(str[i]=='+' || str[i]=='-')
-		sign=(str[i++]=='+')?1:-1;
-	
-	while(i<len){
-		if((str[i]-'0')>=0 && (str[i]-'0')<=9){
-			x=x*10+(str[i]-'0');
-			++i;
-		}
-		else
-			break;
+	while(*str == ' ')
+		++str;
+
+	int sign = 1;
+	if(*str == '-'){
+		++str;
+		sign = -1;
 	}
-	if(x*sign>=INT_MAX)
-		return INT_MAX;
-	else if(x*sign<=INT_MIN)
-		return INT_MIN;
-	else
-		return (int)x*sign;
+	else if(*str == '+')
+		++str;
+
+	long long ret = 0;
+	while( *str >= '0' && *str <= '9'){
+		ret = ret * 10 + (*str - '0');
+		if(ret > INT_MAX) { return sign < 0 ? INT_MIN : INT_MAX;}
+		++str;
+	}
+
+	return int(sign*ret);
 }
