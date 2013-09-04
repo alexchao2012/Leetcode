@@ -24,8 +24,7 @@ int maxSubtreeSum(TreeNode *root,int *curSum){
 	int rMax = maxSubtreeSum(root->right,curSum);
 	int rSum = *curSum;
 
-	*curSum = lSum + rSum + root->val;
-
+	*curSum = lSum + rSum + root->val; 
 	return max(*curSum,max(lMax,rMax));
 }
 
